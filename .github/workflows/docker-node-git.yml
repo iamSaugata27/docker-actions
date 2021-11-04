@@ -2,7 +2,7 @@ name: Docker Image CI (Node.js)
 
 on:
   push:
-    branches: [main]
+    branches: [dev]
 
 jobs:
   build:
@@ -28,4 +28,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/demo-app:docker-node-git_actions
+          tags: demo-app:docker-node-git_actions
