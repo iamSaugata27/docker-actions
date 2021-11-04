@@ -28,4 +28,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: demo-app:docker-node-git_actions
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/demo-app:docker-node-git_actions
