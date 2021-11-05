@@ -28,4 +28,7 @@ jobs:
         with:
           context: .
           push: true
+          env:
+            DEV: ${{ secrets.DEV }}
+            LANGUAGE: ${{ secrets.LANGUAGE }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/demo-app:docker-node-git_actions
