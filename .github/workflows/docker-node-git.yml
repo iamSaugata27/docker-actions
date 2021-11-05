@@ -25,10 +25,16 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build and push to DockerHub
         uses: docker/build-push-action@v2
-        env:
-          DEV: ${{ secrets.DEV }}
-          LANGUAGE: ${{ secrets.LANGUAGE }}
+        # env:
+        #   DEV: ${{ secrets.DEV }}
+        #   LANGUAGE: ${{ secrets.LANGUAGE }}
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/demo-app:docker-node-git_actions
+          # tags: ${{ secrets.DOCKERHUB_USERNAME }}/demo-app:docker-node-git_actions
+          args:
+            # - --file Dockerfile
+            - --tag docker-node-git_actions
+            # - --no-cache
+            - --build-arg DEV=${{ secrets.DEV }}
+            - --build-arg LANGUAGE=${{ secrets.LANGUAGE }}
