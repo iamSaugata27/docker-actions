@@ -12,6 +12,29 @@ jobs:
       # - uses: actions/checkout@v2
       # - name: Build the Docker image
       #   run: docker build . --file Dockerfile --tag docker-node-git_actions
+
+      # *****->>>> in this way, failed to load the environment variables, apart from that remains ok!
+      # - name: Checkout
+      #   uses: actions/checkout@v2
+      # - name: Set up QEMU
+      #   uses: docker/setup-qemu-action@v1
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v1
+      # - name: Login to DockerHub
+      #   uses: docker/login-action@v1
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      # - name: Build and push to DockerHub
+      #   uses: docker/build-push-action@v2
+      #   # env:
+      #   #   DEV: ${{ secrets.DEV }}
+      #   #   LANGUAGE: ${{ secrets.LANGUAGE }}
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-node-git_actions
+
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up QEMU
@@ -23,18 +46,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: Build and push to DockerHub
-        uses: docker/build-push-action@v2
-        # env:
-        #   DEV: ${{ secrets.DEV }}
-        #   LANGUAGE: ${{ secrets.LANGUAGE }}
-        with:
-          context: .
-          push: true
-          tags: docker-node-git_actions
-          args:
-            # - --file Dockerfile
-            # - --${{ secrets.DOCKERHUB_USERNAME }}/tag docker-node-git_actions
-            # - --no-cache
-            - --build-arg DEV=${{ secrets.DEV }}
-            - --build-arg LANGUAGE=${{ secrets.LANGUAGE }}
+      - name: Build the Docker image
+        run: docker build \
+          --build-arg LANGUAGE=${{ secrets.LANGUAGE }} \
+          --build-arg DEV=${{ secrets.DEV }} \
+          --tag ${{ secrets.DOCKERHUB_USERNAME }}/docker-node-git_actions .
+      - name: Push image to DockerHub
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/docker-node-git_actions
