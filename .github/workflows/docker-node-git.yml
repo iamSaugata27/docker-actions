@@ -34,7 +34,7 @@ jobs:
           # tags: ${{ secrets.DOCKERHUB_USERNAME }}/demo-app:docker-node-git_actions
           args:
             # - --file Dockerfile
-            - --tag docker-node-git_actions
+            - --${{ secrets.DOCKERHUB_USERNAME }}/tag docker-node-git_actions
             # - --no-cache
             - --build-arg DEV=${{ secrets.DEV }}
             - --build-arg LANGUAGE=${{ secrets.LANGUAGE }}
