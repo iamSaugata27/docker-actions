@@ -47,9 +47,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build the Docker image
-        run: docker build \
-          --build-arg LANGUAGE=${{ secrets.LANGUAGE }} \
-          --build-arg DEV=${{ secrets.DEV }} \
+        run: docker build
+          --build-arg LANGUAGE=${{ secrets.LANGUAGE }}
+          --build-arg DEV=${{ secrets.DEV }}
           --tag ${{ secrets.DOCKERHUB_USERNAME }}/docker-node-git_actions .
       - name: Push image to DockerHub
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/docker-node-git_actions
